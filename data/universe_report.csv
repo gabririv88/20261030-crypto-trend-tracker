@@ -1,0 +1,62 @@
+symbol,decision,reason
+BTC,added,"start 2026-10-29, avg daily volume $430.1M"
+ETH,added,"start 2026-10-29, avg daily volume $214.5M"
+HYPE,excluded,history 267 days < 400
+XRP,added,"start 2026-10-29, avg daily volume $77.5M"
+SOL,added,"start 2026-10-29, avg daily volume $61.5M"
+PEPE,excluded,meme coin
+NEAR,added,"start 2026-10-29, avg daily volume $45.2M"
+ENA,added,"start 2026-10-29, avg daily volume $6.6M"
+QNT,added,"start 2026-10-29, avg daily volume $23.0M"
+PARTI,excluded,no online USD pair on Coinbase
+SUI,added,"start 2026-10-29, avg daily volume $19.7M"
+LINK,added,"start 2026-10-29, avg daily volume $9.6M"
+PUMP,excluded,meme coin
+AAVE,added,"start 2026-10-29, avg daily volume $5.2M"
+ARB,excluded,30-day avg volume $2.25M < $5.0M
+INJ,excluded,30-day avg volume $4.26M < $5.0M
+VVV,added,"start 2026-10-29, avg daily volume $6.4M"
+HBAR,added,"start 2026-10-29, avg daily volume $7.5M"
+DOGE,excluded,meme coin
+ADA,added,"start 2026-10-29, avg daily volume $12.1M"
+SPX,excluded,meme coin
+NEON,excluded,30-day avg volume $0.55M < $5.0M
+USDC,excluded,stablecoin
+JTO,excluded,30-day avg volume $0.83M < $5.0M
+BNB,excluded,history 373 days < 400
+POND,excluded,30-day avg volume $0.19M < $5.0M
+BEAM,excluded,history 318 days < 400
+AVAX,added,"start 2026-10-29, avg daily volume $7.3M"
+LTC,added,"start 2026-10-29, avg daily volume $8.1M"
+FET,excluded,30-day avg volume $4.13M < $5.0M
+AERGO,excluded,30-day avg volume $0.55M < $5.0M
+BCH,excluded,30-day avg volume $2.74M < $5.0M
+DOT,excluded,30-day avg volume $2.71M < $5.0M
+PYTH,excluded,30-day avg volume $1.20M < $5.0M
+STRK,added,"start 2026-10-29, avg daily volume $7.1M"
+ABT,excluded,30-day avg volume $0.10M < $5.0M
+GRASS,excluded,history 65 days < 400
+UNI,added,"start 2026-10-29, avg daily volume $8.6M"
+CRV,excluded,30-day avg volume $1.93M < $5.0M
+GTC,excluded,30-day avg volume $2.28M < $5.0M
+TRX,excluded,no online USD pair on Coinbase
+AERO,added,"start 2026-10-29, avg daily volume $6.5M"
+ONDO,added,"start 2026-10-29, avg daily volume $6.8M"
+T,excluded,30-day avg volume $0.12M < $5.0M
+APT,excluded,30-day avg volume $1.44M < $5.0M
+MON,excluded,history 340 days < 400
+XDC,excluded,no online USD pair on Coinbase
+XAN,excluded,history 396 days < 400
+XLM,added,"start 2026-10-29, avg daily volume $7.7M"
+WLD,excluded,30-day avg volume $4.13M < $5.0M
+W,excluded,30-day avg volume $0.80M < $5.0M
+JUP,excluded,no online USD pair on Coinbase
+BONK,excluded,meme coin
+BICO,excluded,Revolut X 24h volume $98K < $100K
+PENGU,excluded,meme coin
+SHIB,excluded,meme coin
+RENDER,excluded,Revolut X 24h volume $74K < $100K
+TON,excluded,Revolut X 24h volume $73K < $100K
+RARI,excluded,Revolut X 24h volume $71K < $100K
+LDO,excluded,Revolut X 24h volume $71K < $100K
+TIA,excluded,Revolut X 24h volume $70K < $100K
