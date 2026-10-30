@@ -1,0 +1,259 @@
+<title>Trend Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one instrument-panel column. Health strip, scoreboard table, two linked charts, positions matrix, coin drill-down, trade log. */
+:root {
+  --bg: #f4f4f1; --surface: #fcfcfb; --ink: #1a1a19; --ink2: #52514e; --muted: #85847e; --line: #e3e2dc; --grid: #ecebe6;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --hold: #6b6a65;
+  --good: #0a7a4b; --warn: #a86400; --bad: #c4352f; --chip: #eeeeea;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121211; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #8f8e86; --line: #2e2d2a; --grid: #262523;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --hold: #a9a89f;
+    --good: #3fb883; --warn: #e0a030; --bad: #f06a62; --chip: #262523; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121211; --surface: #1a1a19; --ink: #f0efec; --ink2: #c3c2b7; --muted: #8f8e86; --line: #2e2d2a; --grid: #262523;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --hold: #a9a89f;
+  --good: #3fb883; --warn: #e0a030; --bad: #f06a62; --chip: #262523; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 var(--sans); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 20px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 18px; }
+h1 { font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 13px; font-weight: 600; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink2); }
+.sub { color: var(--muted); font-size: 12.5px; }
+.head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+.status { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; padding: 3px 10px; border-radius: 99px; background: var(--chip); font-weight: 500; }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--good); }
+.status.stale i { background: var(--bad); } .status.stale { color: var(--bad); }
+.banner { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 10px 14px; color: var(--ink2); font-size: 13px; }
+.banner.demo { border-color: var(--warn); color: var(--warn); }
+.banner.err { border-color: var(--bad); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; min-width: 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { font-weight: 500; color: var(--muted); font-size: 12px; }
+tr:last-child td { border-bottom: 0; }
+.num { font-family: var(--mono); font-size: 13px; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; vertical-align: -1px; }
+.pos { color: var(--good); } .neg { color: var(--bad); } .dim { color: var(--muted); }
+.ctrl { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 8px; font-size: 13px; color: var(--ink2); }
+select, input[type=checkbox] { font: inherit; accent-color: var(--s1); }
+select { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 5px; padding: 4px 8px; }
+.chart { width: 100%; height: 340px; }
+.chart.tall { height: 430px; }
+.chart.small { height: 220px; }
+.msg { color: var(--muted); padding: 40px 0; text-align: center; }
+.cell { position: relative; display: inline-block; min-width: 64px; text-align: right; padding: 2px 8px; border-radius: 4px; overflow: hidden; }
+.cell .bar { position: absolute; inset: 0 auto 0 0; width: calc(var(--f) * 100%); background: var(--c); opacity: .28; }
+.cell .t { position: relative; }
+.prog { height: 6px; background: var(--chip); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+.prog b { display: block; height: 100%; background: var(--s1); }
+.legendrow { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-bottom: 6px; font-size: 12.5px; color: var(--ink2); }
+ul.notes { margin: 0; padding-left: 18px; color: var(--ink2); display: flex; flex-direction: column; gap: 6px; }
+a { color: var(--s1); }
+</style>
+
+<div class="wrap">
+  <div class="head">
+    <div>
+      <h1>Trend Tracker</h1>
+      <div class="sub" id="meta"></div>
+    </div>
+    <span class="status" id="status"><i></i><span id="statustxt"></span></span>
+  </div>
+  <div class="banner demo" id="demo" hidden>Demo data: synthetic prices used to preview this page. Nothing here is real.</div>
+  <div class="banner err" id="errs" hidden></div>
+
+  <section class="panel">
+    <h2>Scoreboard</h2>
+    <div class="scroll"><table id="score"></table></div>
+    <div id="prog" class="sub" style="margin-top:12px"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Portfolio value</h2>
+    <div class="ctrl">
+      <label>View <select id="view"><option value="fwd">Live tracking only</option><option value="rep">Replay + live tracking</option></select></label>
+      <label><input type="checkbox" id="log"> Log scale</label>
+      <span class="sub" id="viewnote"></span>
+    </div>
+    <div class="legendrow" id="legend"></div>
+    <div id="c-port" class="chart tall"></div>
+    <div id="c-dd" class="chart small"></div>
+    <div class="sub">Equal-weight portfolio of all tracked coins, every model starting at 100. Drawdown = distance below the previous high.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Positions today</h2>
+    <div class="scroll"><table id="pos"></table></div>
+    <div class="sub" style="margin-top:8px">Share of each coin's paper account that is invested. 0% = in cash, 100% = fully invested.</div>
+  </section>
+
+  <section class="panel">
+    <h2>One coin</h2>
+    <div class="ctrl"><label>Coin <select id="coin"></select></label><span class="sub" id="coinnote"></span></div>
+    <div id="c-coin" class="chart tall"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Latest signals</h2>
+    <div class="scroll"><table id="trades"></table></div>
+    <div class="sub" style="margin-top:8px">“Seen” is the live price when the script first noticed the signal. “Adverse” is how much worse that was than the closing price used in the paper account (positive = worse); lag is hours after the daily close.</div>
+  </section>
+
+  <section class="panel">
+    <h2>How to read this</h2>
+    <ul class="notes">
+      <li>Paper trading only. No orders are placed and no account is connected. Prices are Coinbase daily candles (UTC).</li>
+      <li>Every trade pays 0.14% per side (0.09% Revolut X taker fee plus 0.05% assumed slippage). Each coin starts with $1,000 per model.</li>
+      <li>The replay part of the chart uses today's coin list on past prices, so it is flattered by coins that survived. It shows how the models behave, not what they earned.</li>
+      <li>Fewer than 90 days of live tracking says almost nothing. Judge on drawdown, risk-adjusted return and the gap to buy and hold, after at least a year.</li>
+    </ul>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
+<script>
+const D = __DATA_JSON__;
+const NAMES = { hold: "Buy & hold", sma_50: "SMA 50", sma_100: "SMA 100", sma_blend: "SMA blend", donchian_ens: "Donchian blend" };
+const COLORS = { hold: "--hold", sma_50: "--s1", sma_100: "--s2", sma_blend: "--s3", donchian_ens: "--s4" };
+const $ = id => document.getElementById(id);
+const css = () => getComputedStyle(document.documentElement);
+const cv = n => css().getPropertyValue(n).trim();
+const pct = (x, d = 1, sign = false) => x == null || isNaN(x) ? "–" : (sign && x > 0 ? "+" : "") + (x * 100).toFixed(d) + "%";
+const cls = x => x == null ? "" : x > 0 ? "pos" : x < 0 ? "neg" : "";
+const MODELS = D.models, MOD4 = MODELS.filter(m => m !== "hold");
+
+function maxdd(v) { let pk = 100, mn = 0; for (const x of v) { if (x == null) continue; pk = Math.max(pk, x); mn = Math.min(mn, x / pk - 1); } return mn; }
+function ddSeries(v) { let pk = 100; return v.map(x => { if (x == null) return null; pk = Math.max(pk, x); return (x / pk - 1) * 100; }); }
+const lastv = a => { for (let i = a.length - 1; i >= 0; i--) if (a[i] != null) return a[i]; return null; };
+const firstv = a => a.find(x => x != null) ?? null;
+
+function header() {
+  const gen = new Date(D.generated_utc), age = (Date.now() - gen) / 36e5;
+  const stale = !D.demo && age > 26;
+  $("status").className = "status" + (stale ? " stale" : "");
+  $("statustxt").textContent = D.demo ? "Demo" : stale ? `Stale: last update ${Math.round(age)} h ago, check GitHub Actions` : `Up to date · updated ${age < 1 ? "<1" : Math.round(age)} h ago`;
+  $("meta").textContent = `${D.n_coins} coins · live tracking since ${D.inception} · last closed day ${D.last_closed_day} (UTC)`;
+  $("demo").hidden = !D.demo;
+  if (D.errors && D.errors.length) { $("errs").hidden = false; $("errs").innerHTML = "<b>Notes from the last run</b><br>" + D.errors.map(e => e.replace(/</g, "&lt;")).join("<br>"); }
+}
+
+function score() {
+  const hold = D.metrics.hold, nB = D.dates_B.length;
+  let h = `<tr><th></th><th>Return</th><th>vs hold</th><th>Max drawdown</th><th>Invested</th><th>Trades</th><th>Sharpe</th><th style="border-left:1px solid var(--line)">Replay return</th><th>Replay max DD</th></tr>`;
+  for (const m of MODELS) {
+    const x = D.metrics[m], rv = D.portB[m], rr = lastv(rv) / firstv(rv) - 1;
+    const rel = m === "hold" ? null : x.ret - hold.ret;
+    h += `<tr><td><span class="sw" style="background:var(${COLORS[m]})"></span>${NAMES[m]}</td>
+      <td class="num ${cls(x.ret)}">${x.days < 1 ? "–" : pct(x.ret, 1, true)}</td>
+      <td class="num ${cls(rel)}">${x.days < 1 || rel == null ? "–" : (rel * 100 > 0 ? "+" : "") + (rel * 100).toFixed(1) + " pp"}</td>
+      <td class="num">${x.days < 1 ? "–" : pct(x.maxdd, 1)}</td>
+      <td class="num">${pct(x.expo, 0)}</td><td class="num">${m === "hold" ? "–" : x.trades}</td>
+      <td class="num">${x.sharpe == null ? "<span class='dim'>n/a</span>" : x.sharpe.toFixed(2)}</td>
+      <td class="num ${cls(rr)}" style="border-left:1px solid var(--line)">${pct(rr, 0, true)}</td><td class="num">${pct(maxdd(rv), 0)}</td></tr>`;
+  }
+  $("score").innerHTML = h;
+  const days = D.metrics.hold.days;
+  $("prog").innerHTML = `Live tracking: day <b>${days}</b> of a 365-day first review. Sharpe appears after 90 days.<div class="prog"><b style="width:${Math.min(100, days / 3.65)}%"></b></div>`;
+}
+
+function baseLayout() {
+  const ink = cv("--ink2"), grid = cv("--grid");
+  return { margin: { l: 52, r: 12, t: 8, b: 32 }, paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",
+    font: { family: cv("--sans"), size: 12, color: ink }, hovermode: "x unified", showlegend: false,
+    hoverlabel: { bgcolor: cv("--surface"), bordercolor: cv("--line"), font: { color: cv("--ink"), family: cv("--mono"), size: 12 } },
+    xaxis: { gridcolor: grid, linecolor: grid, zeroline: false, tickfont: { color: ink } },
+    yaxis: { gridcolor: grid, linecolor: grid, zeroline: false, tickfont: { color: ink } } };
+}
+const CFG = { displayModeBar: false, responsive: true };
+
+function legend() {
+  $("legend").innerHTML = MODELS.map(m => `<span><span class="sw" style="background:var(${COLORS[m]});${m === "hold" ? "height:2px;vertical-align:3px;" : ""}"></span>${NAMES[m]}</span>`).join("");
+}
+
+function portCharts() {
+  const rep = $("view").value === "rep", dates = rep ? D.dates_B : D.dates_A, P = rep ? D.portB : D.portA;
+  $("viewnote").textContent = rep ? "Left of the dashed line is a replay on past prices, not live results." : "Starts when tracking began.";
+  const n = dates.filter((d, i) => P.hold[i] != null).length;
+  if (n < 2) {
+    $("c-port").innerHTML = `<div class="msg">Tracking started ${D.inception}. The live chart fills in as daily candles close.<br>Switch the view to “Replay + live tracking” to see the models on past prices.</div>`;
+    $("c-dd").innerHTML = ""; return;
+  }
+  const mk = (m, y) => ({ x: dates, y, name: NAMES[m], type: "scatter", mode: "lines", connectgaps: false,
+    line: { color: cv(COLORS[m]), width: m === "hold" ? 1.6 : 2, dash: m === "hold" ? "dash" : "solid" }, hovertemplate: "%{y:.1f}<extra>" + NAMES[m] + "</extra>" });
+  const lay = baseLayout();
+  lay.yaxis.type = $("log").checked ? "log" : "linear"; lay.yaxis.title = { text: "Index (start = 100)", font: { size: 11 } };
+  if (rep) {
+    lay.shapes = [{ type: "line", xref: "x", yref: "paper", x0: D.inception, x1: D.inception, y0: 0, y1: 1, line: { color: cv("--muted"), width: 1, dash: "dot" } }];
+    lay.annotations = [{ x: D.inception, y: 1, xref: "x", yref: "paper", text: "live tracking starts", showarrow: false, xanchor: "left", yanchor: "top", font: { size: 11, color: cv("--muted") } }];
+  }
+  Plotly.react("c-port", MODELS.map(m => mk(m, P[m])), lay, CFG);
+  const l2 = baseLayout(); l2.yaxis.title = { text: "Drawdown %", font: { size: 11 } }; l2.yaxis.range = [Math.min(-5, ...MODELS.map(m => Math.min(...ddSeries(P[m]).filter(x => x != null)))) * 1.05, 1];
+  if (rep) l2.shapes = lay.shapes;
+  Plotly.react("c-dd", MODELS.map(m => ({ ...mk(m, ddSeries(P[m])), hovertemplate: "%{y:.1f}%<extra>" + NAMES[m] + "</extra>" })), l2, CFG);
+}
+
+function positions() {
+  const coins = Object.keys(D.coins).sort(), n = D.dates_B.length;
+  let h = `<tr><th>Coin</th><th>Price</th><th>7 days</th>${MOD4.map(m => `<th><span class="sw" style="background:var(${COLORS[m]})"></span>${NAMES[m]}</th>`).join("")}<th>Tracked since</th></tr>`;
+  for (const s of coins) {
+    const c = D.coins[s], p = c.price[n - 1], p7 = c.price[n - 8], ch = p != null && p7 != null ? p / p7 - 1 : null;
+    h += `<tr><td><b>${s}</b></td><td class="num">${p == null ? "–" : p >= 100 ? p.toFixed(0) : p >= 1 ? p.toFixed(2) : p.toPrecision(3)}</td><td class="num ${cls(ch)}">${pct(ch, 1, true)}</td>`;
+    for (const m of MOD4) { const w = c.w[m][n - 1]; h += `<td>${w == null ? "<span class='dim'>–</span>" : `<span class="cell" style="--f:${w};--c:var(${COLORS[m]})"><span class="bar"></span><span class="t num">${(w * 100).toFixed(0)}%</span></span>`}</td>`; }
+    h += `<td class="dim">${c.start}</td></tr>`;
+  }
+  $("pos").innerHTML = h;
+}
+
+function coinChart() {
+  const s = $("coin").value, c = D.coins[s], dates = D.dates_B;
+  const f0 = firstv(c.eq.hold);
+  $("coinnote").textContent = `Tracked since ${c.start}. Dashed line = live tracking starts.`;
+  const tr = [];
+  for (const m of MODELS) {
+    const base = firstv(c.eq[m]) || f0;
+    tr.push({ x: dates, y: c.eq[m].map(v => v == null ? null : v / base * 100), name: NAMES[m], mode: "lines", type: "scatter", yaxis: "y",
+      line: { color: cv(COLORS[m]), width: m === "hold" ? 1.6 : 2, dash: m === "hold" ? "dash" : "solid" }, hovertemplate: "%{y:.0f}<extra>" + NAMES[m] + "</extra>" });
+  }
+  for (const m of MOD4) tr.push({ x: dates, y: c.w[m].map(v => v == null ? null : v * 100), name: NAMES[m] + " invested", mode: "lines", type: "scatter", yaxis: "y2",
+    line: { color: cv(COLORS[m]), width: 1.4, shape: "hv" }, hovertemplate: "%{y:.0f}%<extra>" + NAMES[m] + " invested</extra>" });
+  const lay = baseLayout();
+  lay.yaxis = { ...lay.yaxis, domain: [0.30, 1], type: "log", title: { text: "Account value (start = 100)", font: { size: 11 } } };
+  lay.yaxis2 = { ...lay.yaxis, domain: [0, 0.22], type: "linear", range: [-5, 105], tickvals: [0, 50, 100], title: { text: "Invested %", font: { size: 11 } } };
+  lay.xaxis.anchor = "y2";
+  lay.shapes = [{ type: "line", xref: "x", yref: "paper", x0: D.inception, x1: D.inception, y0: 0, y1: 1, line: { color: cv("--muted"), width: 1, dash: "dot" } }];
+  Plotly.react("c-coin", tr, lay, CFG);
+}
+
+function trades() {
+  let h = `<tr><th>Signal day</th><th>Coin</th><th>Model</th><th>Invested</th><th>Close</th><th>Seen</th><th>Lag h</th><th>Adverse</th></tr>`;
+  if (!D.trades.length) h += `<tr><td colspan="8" class="dim" style="text-align:left">No signals yet. Trades appear here when a model changes position.</td></tr>`;
+  for (const t of D.trades) {
+    const [d, s, m, wf, wt, px, seen, lag, adv] = t;
+    h += `<tr><td>${d}</td><td><b>${s}</b></td><td><span class="sw" style="background:var(${COLORS[m]})"></span>${NAMES[m]}</td>
+      <td class="num">${(wf * 100).toFixed(0)}% → ${(wt * 100).toFixed(0)}% <span class="${wt > wf ? "pos" : "neg"}">${wt > wf ? "buy" : "sell"}</span></td>
+      <td class="num">${px}</td><td class="num">${seen ?? "–"}</td><td class="num">${lag ?? "–"}</td><td class="num ${adv != null && adv > 0.5 ? "neg" : ""}">${adv == null ? "–" : adv.toFixed(2) + "%"}</td></tr>`;
+  }
+  $("trades").innerHTML = h;
+}
+
+function renderAll() { legend(); portCharts(); coinChart(); }
+
+header(); score(); positions(); trades();
+$("coin").innerHTML = Object.keys(D.coins).sort().map(s => `<option>${s}</option>`).join("");
+$("view").value = D.metrics.hold.days >= 30 ? "fwd" : "rep";
+$("view").onchange = $("log").onchange = portCharts; $("coin").onchange = coinChart;
+renderAll();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderAll);
+new MutationObserver(renderAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
