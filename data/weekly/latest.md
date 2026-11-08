@@ -1,6 +1,6 @@
 # Weekly trend review 2026-W45
 
-- Week ends: 2026-11-07 (UTC), report built 2026-11-08T13:41:50Z
+- Week ends: 2026-11-07 (UTC), report built 2026-11-08T22:18:35Z
 - Live tracking since 2026-10-29: **9 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
