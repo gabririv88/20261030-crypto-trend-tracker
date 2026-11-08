@@ -1,30 +1,30 @@
 # Weekly trend review 2026-W45
 
-- Week ends: 2026-11-06 (UTC), report built 2026-11-07T22:05:46Z
-- Live tracking since 2026-10-29: **8 days**, 20 coins
+- Week ends: 2026-11-07 (UTC), report built 2026-11-08T06:23:00Z
+- Live tracking since 2026-10-29: **9 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
 ## Models
 
 | Model | Last 7 days | vs hold | Since start | Max drawdown | Invested now | Trades this week |
 |---|---|---|---|---|---|---|
-| hold | -5.5% |  | -1.7% | -7.5% | 100% |  |
-| sma_50 | -0.1% | +5.4 pp | +0.2% | -0.4% | 5% | 2 |
-| sma_100 | -5.7% | -0.2 pp | -3.9% | -6.7% | 20% | 24 |
-| sma_blend | -2.5% | +3.0 pp | -1.4% | -3.2% | 24% | 54 |
-| donchian_ens | -0.9% | +4.6 pp | -0.8% | -1.0% | 4% | 16 |
+| hold | -6.4% |  | -2.0% | -7.5% | 100% |  |
+| sma_50 | -0.2% | +6.2 pp | +0.2% | -0.4% | 0% | 3 |
+| sma_100 | -6.3% | +0.2 pp | -3.6% | -6.7% | 30% | 26 |
+| sma_blend | -2.9% | +3.6 pp | -1.4% | -3.2% | 25% | 56 |
+| donchian_ens | -1.0% | +5.5 pp | -0.8% | -1.0% | 4% | 16 |
 
 Last-7-day figures come from the same rules on the same prices; before the tracking start date they are a replay, not live results.
 
 ## Market trend
 
-- Share of coins above their 50-day average: **5%**; above their 100-day average: **20%** (out of 20)
-- Average 7-day move across coins: -5.5% (median -5.8%)
-- BTC: 75,731 USD, 7-day -1.9%, below its 50-day and below its 100-day average
+- Share of coins above their 50-day average: **0%**; above their 100-day average: **30%** (out of 20)
+- Average 7-day move across coins: -6.4% (median -6.1%)
+- BTC: 75,754 USD, 7-day -2.2%, below its 50-day and below its 100-day average
 
 ## Execution check (price seen vs close used)
 
-- 141 signals noticed within 12 h of the close; median adverse move +0.30%, 48% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
+- 149 signals noticed within 12 h of the close; median adverse move +0.24%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
 
 ## System health
 
@@ -34,4 +34,3 @@ Last-7-day figures come from the same rules on the same prices; before the track
 ## Flags
 
 - Only 19 runs in 7 days. Check the GitHub Actions tab.
-- Median execution gap is above 0.25%: real costs may be higher than assumed.
