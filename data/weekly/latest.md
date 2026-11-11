@@ -1,6 +1,6 @@
 # Weekly trend review 2026-W46
 
-- Week ends: 2026-11-10 (UTC), report built 2026-11-11T06:50:04Z
+- Week ends: 2026-11-10 (UTC), report built 2026-11-11T19:45:25Z
 - Live tracking since 2026-10-29: **12 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
@@ -28,9 +28,9 @@ Last-7-day figures come from the same rules on the same prices; before the track
 
 ## System health
 
-- Runs in the last 7 days: 16 (expected 28 once running for a full week)
+- Runs in the last 7 days: 17 (expected 28 once running for a full week)
 - Download failures in this run: 0; coins without the last closed day: 0
 
 ## Flags
 
-- Only 16 runs in 7 days. Check the GitHub Actions tab.
+- Only 17 runs in 7 days. Check the GitHub Actions tab.
