@@ -226,3 +226,6 @@ signal_day,coin,model,weight_from,weight_to,close_price,fee_usd
 2026-11-14,STRK,sma_blend,0.100,0.000,0.03326,0.1168
 2026-11-14,UNI,sma_blend,0.200,0.000,4.8848,0.2212
 2026-11-14,VVV,sma_blend,0.200,0.000,17.347,0.2391
+2026-11-15,NEAR,sma_blend,0.200,0.300,3.2148,0.1132
+2026-11-15,UNI,sma_blend,0.000,0.100,5.1829,0.1261
+2026-11-15,VVV,sma_blend,0.000,0.300,20.4547,0.3854
