@@ -232,3 +232,4 @@ signal_day,coin,model,weight_from,weight_to,close_price,fee_usd
 2026-11-17,AAVE,sma_blend,0.000,0.100,112.45,0.1354
 2026-11-17,VVV,donchian_ens,0.000,0.125,21.072,0.1740
 2026-11-17,VVV,sma_blend,0.300,0.400,21.072,0.1213
+2026-11-18,AAVE,sma_blend,0.100,0.000,109.24,0.1316
