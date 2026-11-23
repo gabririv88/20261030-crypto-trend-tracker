@@ -1,30 +1,30 @@
 # Weekly trend review 2026-W47
 
-- Week ends: 2026-11-21 (UTC), report built 2026-11-22T19:53:03Z
-- Live tracking since 2026-10-29: **23 days**, 20 coins
+- Week ends: 2026-11-22 (UTC), report built 2026-11-23T07:55:47Z
+- Live tracking since 2026-10-29: **24 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
 ## Models
 
 | Model | Last 7 days | vs hold | Since start | Max drawdown | Invested now | Trades this week |
 |---|---|---|---|---|---|---|
-| hold | -3.3% |  | -24.2% | -29.3% | 100% |  |
-| sma_50 | -0.0% | +3.3 pp | +0.2% | -0.4% | 5% | 1 |
-| sma_100 | -0.1% | +3.2 pp | -7.9% | -10.5% | 5% | 2 |
-| sma_blend | +0.2% | +3.6 pp | -4.6% | -6.5% | 7% | 10 |
-| donchian_ens | +0.1% | +3.4 pp | -0.8% | -1.2% | 2% | 2 |
+| hold | -6.7% |  | -22.9% | -29.3% | 100% |  |
+| sma_50 | +0.3% | +7.0 pp | +0.6% | -0.4% | 5% | 1 |
+| sma_100 | -0.3% | +6.4 pp | -7.6% | -10.5% | 5% | 2 |
+| sma_blend | +0.4% | +7.0 pp | -4.3% | -6.5% | 7% | 7 |
+| donchian_ens | +0.2% | +6.9 pp | -0.7% | -1.2% | 2% | 3 |
 
 Last-7-day figures come from the same rules on the same prices; before the tracking start date they are a replay, not live results.
 
 ## Market trend
 
 - Share of coins above their 50-day average: **5%**; above their 100-day average: **5%** (out of 20)
-- Average 7-day move across coins: -3.0% (median -4.9%)
-- BTC: 60,086 USD, 7-day -6.3%, below its 50-day and below its 100-day average
+- Average 7-day move across coins: -6.4% (median -8.7%)
+- BTC: 61,163 USD, 7-day -6.4%, below its 50-day and below its 100-day average
 
 ## Execution check (price seen vs close used)
 
-- 222 signals noticed within 12 h of the close; median adverse move +0.22%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
+- 223 signals noticed within 12 h of the close; median adverse move +0.19%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
 
 ## System health
 
