@@ -1,30 +1,30 @@
-# Weekly trend review 2026-W47
+# Weekly trend review 2026-W48
 
-- Week ends: 2026-11-22 (UTC), report built 2026-11-23T07:55:47Z
-- Live tracking since 2026-10-29: **24 days**, 20 coins
+- Week ends: 2026-11-23 (UTC), report built 2026-11-24T00:07:34Z
+- Live tracking since 2026-10-29: **25 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
 ## Models
 
 | Model | Last 7 days | vs hold | Since start | Max drawdown | Invested now | Trades this week |
 |---|---|---|---|---|---|---|
-| hold | -6.7% |  | -22.9% | -29.3% | 100% |  |
-| sma_50 | +0.3% | +7.0 pp | +0.6% | -0.4% | 5% | 1 |
-| sma_100 | -0.3% | +6.4 pp | -7.6% | -10.5% | 5% | 2 |
-| sma_blend | +0.4% | +7.0 pp | -4.3% | -6.5% | 7% | 7 |
-| donchian_ens | +0.2% | +6.9 pp | -0.7% | -1.2% | 2% | 3 |
+| hold | -4.0% |  | -22.1% | -29.3% | 100% |  |
+| sma_50 | -0.1% | +3.9 pp | +0.2% | -0.4% | 5% | 1 |
+| sma_100 | -0.6% | +3.4 pp | -8.0% | -10.5% | 10% | 3 |
+| sma_blend | +0.2% | +4.2 pp | -4.6% | -6.5% | 8% | 8 |
+| donchian_ens | +0.0% | +4.0 pp | -0.9% | -1.2% | 2% | 3 |
 
 Last-7-day figures come from the same rules on the same prices; before the tracking start date they are a replay, not live results.
 
 ## Market trend
 
-- Share of coins above their 50-day average: **5%**; above their 100-day average: **5%** (out of 20)
-- Average 7-day move across coins: -6.4% (median -8.7%)
-- BTC: 61,163 USD, 7-day -6.4%, below its 50-day and below its 100-day average
+- Share of coins above their 50-day average: **5%**; above their 100-day average: **10%** (out of 20)
+- Average 7-day move across coins: -4.0% (median -5.6%)
+- BTC: 61,190 USD, 7-day -5.6%, below its 50-day and below its 100-day average
 
 ## Execution check (price seen vs close used)
 
-- 223 signals noticed within 12 h of the close; median adverse move +0.19%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
+- 225 signals noticed within 12 h of the close; median adverse move +0.19%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
 
 ## System health
 
