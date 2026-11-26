@@ -1,6 +1,6 @@
 # Weekly trend review 2026-W48
 
-- Week ends: 2026-11-25 (UTC), report built 2026-11-26T08:40:22Z
+- Week ends: 2026-11-25 (UTC), report built 2026-11-26T21:45:18Z
 - Live tracking since 2026-10-29: **27 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
@@ -19,7 +19,7 @@ Last-7-day figures come from the same rules on the same prices; before the track
 ## Market trend
 
 - Share of coins above their 50-day average: **5%**; above their 100-day average: **5%** (out of 20)
-- Average 7-day move across coins: -3.7% (median -5.0%)
+- Average 7-day move across coins: -3.8% (median -5.0%)
 - BTC: 60,384 USD, 7-day -4.1%, below its 50-day and below its 100-day average
 
 ## Execution check (price seen vs close used)
