@@ -1,6 +1,6 @@
 # Weekly trend review 2026-W48
 
-- Week ends: 2026-11-26 (UTC), report built 2026-11-27T08:50:55Z
+- Week ends: 2026-11-26 (UTC), report built 2026-11-27T21:29:10Z
 - Live tracking since 2026-10-29: **28 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
@@ -9,7 +9,7 @@
 | Model | Last 7 days | vs hold | Since start | Max drawdown | Invested now | Trades this week |
 |---|---|---|---|---|---|---|
 | hold | -1.8% |  | -22.3% | -29.3% | 100% |  |
-| sma_50 | +0.4% | +2.2 pp | +0.6% | -0.5% | 5% | 1 |
+| sma_50 | +0.4% | +2.1 pp | +0.6% | -0.5% | 5% | 1 |
 | sma_100 | -0.3% | +1.5 pp | -7.9% | -10.7% | 10% | 5 |
 | sma_blend | +0.5% | +2.2 pp | -4.2% | -6.5% | 8% | 7 |
 | donchian_ens | +0.2% | +2.0 pp | -0.7% | -1.2% | 3% | 3 |
