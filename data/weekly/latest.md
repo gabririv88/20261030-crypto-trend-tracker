@@ -1,30 +1,30 @@
 # Weekly trend review 2026-W48
 
-- Week ends: 2026-11-25 (UTC), report built 2026-11-26T21:45:18Z
-- Live tracking since 2026-10-29: **27 days**, 20 coins
+- Week ends: 2026-11-26 (UTC), report built 2026-11-27T08:50:55Z
+- Live tracking since 2026-10-29: **28 days**, 20 coins
 - Evidence level: **setup phase: check the system works, ignore the returns**
 
 ## Models
 
 | Model | Last 7 days | vs hold | Since start | Max drawdown | Invested now | Trades this week |
 |---|---|---|---|---|---|---|
-| hold | -3.9% |  | -22.3% | -29.3% | 100% |  |
-| sma_50 | +0.9% | +4.8 pp | +1.1% | -0.4% | 5% | 1 |
-| sma_100 | +0.2% | +4.0 pp | -7.4% | -10.7% | 5% | 4 |
-| sma_blend | +0.9% | +4.8 pp | -3.7% | -6.5% | 8% | 7 |
-| donchian_ens | +0.5% | +4.4 pp | -0.4% | -1.2% | 2% | 2 |
+| hold | -1.8% |  | -22.3% | -29.3% | 100% |  |
+| sma_50 | +0.4% | +2.2 pp | +0.6% | -0.5% | 5% | 1 |
+| sma_100 | -0.3% | +1.5 pp | -7.9% | -10.7% | 10% | 5 |
+| sma_blend | +0.5% | +2.2 pp | -4.2% | -6.5% | 8% | 7 |
+| donchian_ens | +0.2% | +2.0 pp | -0.7% | -1.2% | 3% | 3 |
 
 Last-7-day figures come from the same rules on the same prices; before the tracking start date they are a replay, not live results.
 
 ## Market trend
 
-- Share of coins above their 50-day average: **5%**; above their 100-day average: **5%** (out of 20)
-- Average 7-day move across coins: -3.8% (median -5.0%)
-- BTC: 60,384 USD, 7-day -4.1%, below its 50-day and below its 100-day average
+- Share of coins above their 50-day average: **5%**; above their 100-day average: **10%** (out of 20)
+- Average 7-day move across coins: -1.9% (median -3.0%)
+- BTC: 60,496 USD, 7-day -2.3%, below its 50-day and below its 100-day average
 
 ## Execution check (price seen vs close used)
 
-- 228 signals noticed within 12 h of the close; median adverse move +0.18%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
+- 231 signals noticed within 12 h of the close; median adverse move +0.19%, 46% worse than 0.30% (the paper account assumes 0.05% slippage plus fees)
 
 ## System health
 
